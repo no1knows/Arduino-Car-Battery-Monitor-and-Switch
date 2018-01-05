@@ -1,4 +1,4 @@
-#include <LowPower.h>
+  #include <LowPower.h>
 
 /*--------------------------------------------------------------
   Program:      volt_measure
@@ -18,7 +18,7 @@
 --------------------------------------------------------------*/
 
 // number of analog samples to take per reading
-#define NUM_SAMPLES 100
+#define NUM_SAMPLES 50
 const int relayPin = 11;
 const int accPin = 2;
 
@@ -53,18 +53,18 @@ void loop()
     // calculate the voltage
     // use 5.0 for a 5.0V ADC reference voltage
     // 3.574 is the calibrated reference voltage
-    voltage = ((float)sum / (float)NUM_SAMPLES * 3.574) / 1024.0;
+    voltage = ((float)sum / (float)NUM_SAMPLES * 3.595) / 1024.0;
     // send voltage for display on Serial Monitor
     // voltage multiplied by 11 when using voltage divider that
     // divides by 11. 11.161 is the calibrated voltage divide
-    // value and 0.708 is the diode voltage drop
-    voltOut = voltage * 11.161 + 0.708;
+    // value and 0.695 is the diode voltage drop
+    voltOut = voltage * 11.161 + 0.695;
     Serial.println(voltage);  
     Serial.print(voltOut);
     Serial.println (" V");
     sample_count = 0;
     sum = 0;
-    if (voltOut < 12.7) { 
+    if (voltOut < 12.25) { 
      if (relayStatus == 1) {
       Serial.println("low voltage, turning off relay");
       digitalWrite(relayPin, LOW); 
